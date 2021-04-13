@@ -30,7 +30,8 @@
 .pub-cache/
 .pub/
 /build/
-.google-services.json
+/android/app/google-services.json
+
 
 # Web related
 lib/generated_plugin_registrant.dart
