@@ -1,16 +1,24 @@
-# fcm_notifications
+# Flutter Notification & FCM
 
-A new Flutter project.
+The repo is about flutter notification and FCM (Firebase Cloud Messaging).<br>
+It is updated with Flutter v2 and new updates of Firebase Messaging.<br><br>
+You will learn how to implement foreground and background notifications in andoid<br><br>
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Just clone the repo and add your firebase 'google-services.json'.<br><br>
 
-A few resources to get you started if this is your first Flutter project:
+For Step By Step Guide Follow Video Tutorials:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [Flutter v2 - Firebase Messaging (Foreground & Background) Notification Complete Tutorial](https://youtu.be/4Cwp1iA8BaQ)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<br><br>
+
+
+- [Firebase Messaging link](https://bit.ly/3s9BzBb)
+- [Flutter Local Notification link](https://bit.ly/3edZF9h)
+- [Nodejs Link](https://nodejs.org/en/download/)
+<br><br>
+
+Feel Free to copy the code and use it.<br><br>
+Don't forget to star the repo and like the video :)

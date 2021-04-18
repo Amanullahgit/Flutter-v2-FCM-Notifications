@@ -9,16 +9,16 @@ admin.initializeApp({
 var registrationToken = 'cqzrxJjSQD29FAOBDzyBP5:APA91bF7A7Z_f21_m5XGgwM17lcoiNEGX5sUqfpygnd2alokQ1nWdDI23xE4q1Hv0taT12jaQ00mTWzgGuBVyDO9yyvfsxkq47iOaYcQPyfjuvpw5qmDByO7lLzr471RNHFCtMS_ALmH';
 
 var message = {
-  data: {
+  notification: {
     title: '850',
     body: '2:45'
   },
-  token: registrationToken
+  // token: registrationToken
 };
 
 // Send a message to the device corresponding to the provided
 // registration token.
-admin.messaging().send(message)
+admin.messaging().sendToTopic('Samsung',message)
   .then((response) => {
     // Response is a message ID string.
     console.log('Successfully sent message:', response);

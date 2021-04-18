@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String token;
+  List subscribed = [];
+  List topics = [
+    'Samsung',
+    'Apple',
+    'Huawei',
+    'Nokia',
+    'Sony',
+    'HTC',
+    'Lenovo'
+  ];
   @override
   void initState() {
     super.initState();
@@ -77,21 +89,75 @@ class _MyAppState extends State<MyApp> {
       }
     });
     getToken();
+    getTopics();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text("Hi"),
-        ),
-      ),
+          appBar: AppBar(
+            title: Text('appbar'),
+          ),
+          body: ListView.builder(
+            itemCount: topics.length,
+            itemBuilder: (context, index) => ListTile(
+              title: Text(topics[index]),
+              trailing: subscribed.contains(topics[index])
+                  ? ElevatedButton(
+                      onPressed: () async {
+                        await FirebaseMessaging.instance
+                            .unsubscribeFromTopic(topics[index]);
+                        await FirebaseFirestore.instance
+                            .collection('topics')
+                            .doc(token)
+                            .update({topics[index]: FieldValue.delete()});
+                        setState(() {
+                          subscribed.remove(topics[index]);
+                        });
+                      },
+                      child: Text('unsubscribe'),
+                    )
+                  : ElevatedButton(
+                      onPressed: () async {
+                        await FirebaseMessaging.instance
+                            .subscribeToTopic(topics[index]);
+
+                        await FirebaseFirestore.instance
+                            .collection('topics')
+                            .doc(token)
+                            .set({topics[index]: 'subscribe'},
+                                SetOptions(merge: true));
+                        setState(() {
+                          subscribed.add(topics[index]);
+                        });
+                      },
+                      child: Text('subscribe')),
+            ),
+          )),
     );
   }
 
   getToken() async {
-    String token = await FirebaseMessaging.instance.getToken();
+    token = await FirebaseMessaging.instance.getToken();
+    setState(() {
+      token = token;
+    });
     print(token);
+  }
+
+  getTopics() async {
+    await FirebaseFirestore.instance
+        .collection('topics')
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              if (token == element.id) {
+                subscribed = element.data().keys.toList();
+              }
+            }));
+
+    setState(() {
+      subscribed = subscribed;
+    });
   }
 }
